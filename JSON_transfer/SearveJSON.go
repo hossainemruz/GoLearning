@@ -36,18 +36,18 @@ func handler(writer http.ResponseWriter, request *http.Request)  {
 		var values operands
 		//fmt.Println(request.URL.Query())
 
-		A, existA :=request.URL.Query()["A"]
+		A, existA :=request.URL.Query()["FirstOperand"]
 		if existA{
 			values.FirstOperand,_=strconv.Atoi(A[0])
 		}else{
-			http.Error(writer,"Opearand A not found",http.StatusBadRequest)
+			http.Error(writer,"Opearand FirstOperand not found",http.StatusBadRequest)
 			return
 		}
-		B, existB :=request.URL.Query()["B"]
+		B, existB :=request.URL.Query()["SecondOperand"]
 		if existB{
 			values.SecondOperand,_=strconv.Atoi(B[0])
 		}else{
-			http.Error(writer,"Opearand B not found",http.StatusBadRequest)
+			http.Error(writer,"Opearand SecondOperand not found",http.StatusBadRequest)
 			return
 		}
 		response:=calculate(values)
@@ -66,7 +66,7 @@ func handler(writer http.ResponseWriter, request *http.Request)  {
 		var values operands
 		err := decoder.Decode(&values)
 		if err!=nil{
-			fmt.Println("From POST ",err)
+			fmt.Println(err)
 		}else {
 			response:=calculate(values)
 			responseJSON, err:= json.MarshalIndent(response,""," ")
