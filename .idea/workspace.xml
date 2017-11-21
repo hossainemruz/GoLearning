@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="13e9fd8f-08e6-4412-bf09-968b928b42cc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="13e9fd8f-08e6-4412-bf09-968b928b42cc" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,12 +47,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="add.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/commandLineCalculator/cmd/add.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="558">
+              <caret line="31" column="15" lean-forward="true" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+              <folding>
+                <element signature="e#618#673#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/YML_Example/client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="666">
+              <caret line="37" column="75" lean-forward="true" selection-start-line="37" selection-start-column="75" selection-end-line="37" selection-end-column="75" />
+              <folding>
+                <element signature="e#14#91#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -140,18 +152,12 @@
             <path>
               <item name="GoLearning" type="b2602c69:ProjectViewProjectNode" />
               <item name="GoLearning" type="462c0819:PsiDirectoryNode" />
-              <item name="commandLineCalculator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GoLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoLearning" type="462c0819:PsiDirectoryNode" />
-              <item name="commandLineCalculator" type="462c0819:PsiDirectoryNode" />
-              <item name="cmd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GoLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoLearning" type="462c0819:PsiDirectoryNode" />
               <item name="FlagTest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GoLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GoLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="YML_Example" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -237,7 +243,7 @@
         <state relative-caret-position="486">
           <caret line="32" column="41" lean-forward="true" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
           <folding>
-            <element signature="e#618#673#0" expanded="false" />
+            <element signature="e#618#673#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -346,13 +352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YML_Example/client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YML_Example/Server.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="545">
@@ -448,9 +447,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/commandLineCalculator/cmd/add.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="558">
+          <caret line="31" column="15" lean-forward="true" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+          <folding>
+            <element signature="e#618#673#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YML_Example/client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="37" column="75" lean-forward="true" selection-start-line="37" selection-start-column="75" selection-end-line="37" selection-end-column="75" />
+          <folding>
+            <element signature="e#14#91#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
