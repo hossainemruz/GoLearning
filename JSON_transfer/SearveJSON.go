@@ -32,6 +32,7 @@ func calculate(values operands)(result)  {
 
 }
 func handler(writer http.ResponseWriter, request *http.Request)  {
+	fmt.Println("Recieved new request....")
 	if request.Method == "GET"{
 		var values operands
 		//fmt.Println(request.URL.Query())
@@ -40,17 +41,18 @@ func handler(writer http.ResponseWriter, request *http.Request)  {
 		if existA{
 			values.FirstOperand,_=strconv.Atoi(A[0])
 		}else{
-			http.Error(writer,"Opearand FirstOperand not found",http.StatusBadRequest)
+			http.Error(writer,"FirstOperand not found",http.StatusBadRequest)
 			return
 		}
 		B, existB :=request.URL.Query()["SecondOperand"]
 		if existB{
 			values.SecondOperand,_=strconv.Atoi(B[0])
 		}else{
-			http.Error(writer,"Opearand SecondOperand not found",http.StatusBadRequest)
+			http.Error(writer,"SecondOperand not found",http.StatusBadRequest)
 			return
 		}
 		response:=calculate(values)
+		fmt.Println(response)
 		responseJSON, err:= json.MarshalIndent(response,""," ")
 		if err!=nil{
 			http.Error(writer,"Conversion Error",http.StatusInternalServerError)
@@ -69,6 +71,7 @@ func handler(writer http.ResponseWriter, request *http.Request)  {
 			fmt.Println(err)
 		}else {
 			response:=calculate(values)
+			fmt.Println(response)
 			responseJSON, err:= json.MarshalIndent(response,""," ")
 			if err!=nil{
 				http.Error(writer,"Conversion Error",http.StatusInternalServerError)
