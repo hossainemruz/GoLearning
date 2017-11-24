@@ -34,18 +34,27 @@ func calculate(values operands)(result)  {
 func handler(writer http.ResponseWriter, request *http.Request)  {
 	if request.Method == "GET"{
 		var values operands
-		//fmt.Println(request.URL.Query())
+		var errx error
+		fmt.Println("GET request found")
 
 		A, existA :=request.URL.Query()["FirstOperand"]
 		if existA{
-			values.FirstOperand,_=strconv.Atoi(A[0])
+			values.FirstOperand,errx=strconv.Atoi(A[0])
+			if errx!=nil{
+				http.Error(writer,"Operands should be integer",http.StatusBadRequest)
+				return
+			}
 		}else{
 			http.Error(writer,"Opearand FirstOperand not found",http.StatusBadRequest)
 			return
 		}
 		B, existB :=request.URL.Query()["SecondOperand"]
 		if existB{
-			values.SecondOperand,_=strconv.Atoi(B[0])
+			values.SecondOperand,errx=strconv.Atoi(B[0])
+			if errx!=nil{
+				http.Error(writer,"Operands should be integer",http.StatusBadRequest)
+				return
+			}
 		}else{
 			http.Error(writer,"Opearand SecondOperand not found",http.StatusBadRequest)
 			return
@@ -60,15 +69,14 @@ func handler(writer http.ResponseWriter, request *http.Request)  {
 
 	}
 	if request.Method == "POST"{
-		//fmt.Println("POST method called")
+		fmt.Println("POST request found")
 		defer request.Body.Close()
 		decoder := json.NewDecoder(request.Body)
 		var values operands
 		err := decoder.Decode(&values)
 		if err!=nil{
-			fmt.Println(err)
+			http.Error(writer,"Wrong JSON",http.StatusBadRequest)
 		}else {
-			fmt.Println("A request recieved")
 			response:=calculate(values)
 			responseJSON, err:= json.MarshalIndent(response,""," ")
 			if err!=nil{
@@ -79,7 +87,9 @@ func handler(writer http.ResponseWriter, request *http.Request)  {
 		}
 	}
 }
-
+func StartServer(url string) {
+	fmt.Println("Server is starting......")
+}
 func main()  {
 	fmt.Println("Server is running.....")
 	http.HandleFunc("/",handler)
