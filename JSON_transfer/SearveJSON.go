@@ -5,6 +5,9 @@ import (
 	"net/http"
 	"strconv"
 	"encoding/json"
+
+	"strings"
+	"encoding/base64"
 )
 
 type result struct{
@@ -33,43 +36,28 @@ func calculate(values operands)(result)  {
 }
 func handler(writer http.ResponseWriter, request *http.Request)  {
 	fmt.Println("Recieved new request....")
-	if request.Method == "GET"{
-		var values operands
-		//fmt.Println(request.URL.Query())
+	if isAuthorised(writer,request)==false{
+		writer.Header().Add("WWW-Authenticate",`Basic realm="Authorization Required"`)
+		http.Error(writer,"401 Unauthorized",http.StatusUnauthorized)
+	}else{
+		if request.Method == "GET"{
+			var values operands
+			//fmt.Println(request.URL.Query())
 
-		A, existA :=request.URL.Query()["FirstOperand"]
-		if existA{
-			values.FirstOperand,_=strconv.Atoi(A[0])
-		}else{
-			http.Error(writer,"FirstOperand not found",http.StatusBadRequest)
-			return
-		}
-		B, existB :=request.URL.Query()["SecondOperand"]
-		if existB{
-			values.SecondOperand,_=strconv.Atoi(B[0])
-		}else{
-			http.Error(writer,"SecondOperand not found",http.StatusBadRequest)
-			return
-		}
-		response:=calculate(values)
-		fmt.Println(response)
-		responseJSON, err:= json.MarshalIndent(response,""," ")
-		if err!=nil{
-			http.Error(writer,"Conversion Error",http.StatusInternalServerError)
-		}else{
-			fmt.Fprintln(writer, string(responseJSON))
-		}
-
-	}
-	if request.Method == "POST"{
-		//fmt.Println("POST method called")
-		defer request.Body.Close()
-		decoder := json.NewDecoder(request.Body)
-		var values operands
-		err := decoder.Decode(&values)
-		if err!=nil{
-			fmt.Println(err)
-		}else {
+			A, existA :=request.URL.Query()["FirstOperand"]
+			if existA{
+				values.FirstOperand,_=strconv.Atoi(A[0])
+			}else{
+				http.Error(writer,"FirstOperand not found",http.StatusBadRequest)
+				return
+			}
+			B, existB :=request.URL.Query()["SecondOperand"]
+			if existB{
+				values.SecondOperand,_=strconv.Atoi(B[0])
+			}else{
+				http.Error(writer,"SecondOperand not found",http.StatusBadRequest)
+				return
+			}
 			response:=calculate(values)
 			fmt.Println(response)
 			responseJSON, err:= json.MarshalIndent(response,""," ")
@@ -78,8 +66,50 @@ func handler(writer http.ResponseWriter, request *http.Request)  {
 			}else{
 				fmt.Fprintln(writer, string(responseJSON))
 			}
+
+		}
+		if request.Method == "POST"{
+			//fmt.Println("POST method called")
+			defer request.Body.Close()
+			decoder := json.NewDecoder(request.Body)
+			var values operands
+			err := decoder.Decode(&values)
+			if err!=nil{
+				fmt.Println(err)
+			}else {
+				response:=calculate(values)
+				fmt.Println(response)
+				responseJSON, err:= json.MarshalIndent(response,""," ")
+				if err!=nil{
+					http.Error(writer,"Conversion Error",http.StatusInternalServerError)
+				}else{
+					fmt.Fprintln(writer, string(responseJSON))
+				}
+			}
 		}
 	}
+
+}
+
+func isAuthorised(writer http.ResponseWriter,request *http.Request) bool  {
+	authorizationHeader:=strings.SplitN(request.Header.Get("Authorization")," ",2)
+	fmt.Println(authorizationHeader)
+	if len(authorizationHeader)!=2{
+		return false
+	}
+	baseCredential,err:=base64.StdEncoding.DecodeString(authorizationHeader[1])
+	if err!=nil{
+		return false
+	}else{
+		credential:=strings.SplitN(string(baseCredential),":",2)
+		fmt.Println(credential)
+		if credential[0]=="emruz"&&credential[1]=="1234"{
+			return  true
+		}else{
+			return false
+		}
+	}
+	return  false
 }
 
 func main()  {
